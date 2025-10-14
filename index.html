@@ -1,34 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dynamic Quote Generator</title>
-  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main class="container" id="app">
-    <header>
-      <h1>Dynamic Quote Generator</h1>
-      <p class="sub">Select a category or add your own quotes and categories.</p>
-    </header>
+  <h1>Dynamic Quote Generator</h1>
 
-    <!-- Controls (buttons and category filters injected by JS) -->
-    <section id="controls" aria-label="Quote controls"></section>
+  <!-- Display area for quotes -->
+  <div id="quoteDisplay"></div>
 
-    <!-- Quote display area -->
-    <section id="quoteArea" aria-live="polite">
-      <div id="quoteDisplay" class="quote-card"></div>
-    </section>
+  <!-- Button to show new quote -->
+  <button id="newQuote">Show New Quote</button>
 
-    <!-- Form area - JS will create form dynamically -->
-    <section id="formArea" aria-label="Add quote form"></section>
+  <!-- Form to add a new quote -->
+  <div>
+    <input id="newQuoteText" type="text" placeholder="Enter a new quote">
+    <input id="newQuoteCategory" type="text" placeholder="Enter quote category">
+    <button id="addQuoteBtn">Add Quote</button>
+  </div>
 
-    <footer>
-      <small>Repo: alx_fe_javascript / Directory: dom-manipulation</small>
-    </footer>
-  </main>
-
-  <script src="script.js" type="module"></script>
+  <script src="script.js"></script>
 </body>
 </html>
