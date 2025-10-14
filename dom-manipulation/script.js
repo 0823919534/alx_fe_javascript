@@ -2,7 +2,7 @@
 let quotes = [];
 
 // ----- 2. Selected category for filtering -----
-let selectedCategory = "all"; // must exist for ALX checker
+let selectedCategory = "all"; // required for ALX checker
 
 // ----- 3. Load quotes from localStorage -----
 function loadQuotes() {
@@ -28,10 +28,8 @@ function saveQuotes() {
 function populateCategories() {
   const select = document.getElementById("categoryFilter");
 
-  // Clear existing options except "all"
   select.innerHTML = '<option value="all">All Categories</option>';
 
-  // Get unique categories
   const categories = [...new Set(quotes.map(q => q.category))];
   categories.forEach(cat => {
     const option = document.createElement("option");
@@ -40,7 +38,6 @@ function populateCategories() {
     select.appendChild(option);
   });
 
-  // Restore last selected category from localStorage
   const savedCategory = localStorage.getItem("selectedCategory") || "all";
   selectedCategory = savedCategory;
   select.value = savedCategory;
@@ -66,7 +63,7 @@ function displayQuotes() {
     quoteDisplay.appendChild(p);
   });
 
-  // Save last viewed quote to sessionStorage
+  // Save last viewed quote in sessionStorage
   const randomQuote = filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)];
   sessionStorage.setItem("lastQuote", JSON.stringify(randomQuote));
 }
@@ -74,8 +71,8 @@ function displayQuotes() {
 // ----- 7. Filter quotes when dropdown changes -----
 function filterQuotes() {
   const select = document.getElementById("categoryFilter");
-  selectedCategory = select.value;  // explicitly use selectedCategory
-  localStorage.setItem("selectedCategory", selectedCategory); // save to localStorage
+  selectedCategory = select.value;
+  localStorage.setItem("selectedCategory", selectedCategory);
   displayQuotes();
 }
 
@@ -100,7 +97,7 @@ function addQuote() {
   const newQuote = { text, category };
   quotes.push(newQuote);
   saveQuotes();
-  populateCategories();  // update dropdown
+  populateCategories();
   displayQuotes();
 
   textInput.value = "";
@@ -171,14 +168,5 @@ function importFromJsonFile(event) {
   reader.readAsText(file);
 }
 
-// ----- 13. Event listeners -----
-document.getElementById("newQuote").addEventListener("click", displayRandomQuote);
-document.getElementById("categoryFilter").addEventListener("change", filterQuotes);
-document.getElementById("exportBtn").addEventListener("click", exportQuotes);
-document.getElementById("importFile").addEventListener("change", importFromJsonFile);
-
-// ----- 14. Initialize -----
-loadQuotes();
-populateCategories();
-displayQuotes();
-createAddQuoteForm();
+// ----- 13. Simulate server sync -----
+// Using JSONP
