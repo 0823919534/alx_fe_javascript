@@ -1,4 +1,4 @@
-﻿// Global quotes array
+﻿// Quotes array with objects containing text and category
 const quotes = [
   { text: 'The only limit to our realization of tomorrow is our doubts of today.', category: 'inspiration' },
   { text: 'Simplicity is the ultimate sophistication.', category: 'wisdom' },
@@ -38,5 +38,5 @@ document.getElementById('newQuote').addEventListener('click', displayRandomQuote
 // Event listener for 'Add Quote' button
 document.getElementById('addQuoteBtn').addEventListener('click', addQuote);
 
-// Display initial quote on page load
+// Display a random quote on page load
 displayRandomQuote();
