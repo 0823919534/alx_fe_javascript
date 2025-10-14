@@ -1,4 +1,4 @@
-﻿// Quotes array with objects containing text and category
+﻿// Global quotes array with text and category
 const quotes = [
   { text: 'The only limit to our realization of tomorrow is our doubts of today.', category: 'inspiration' },
   { text: 'Simplicity is the ultimate sophistication.', category: 'wisdom' },
@@ -9,16 +9,13 @@ const quotes = [
 function displayRandomQuote() {
   const randomIndex = Math.floor(Math.random() * quotes.length);
   const quote = quotes[randomIndex];
-  const quoteDisplay = document.getElementById('quoteDisplay');
-  quoteDisplay.textContent = '\"' + quote.text + '\" - ' + quote.category;
+  document.getElementById('quoteDisplay').textContent = '\"' + quote.text + '\" - ' + quote.category;
 }
 
 // Function to add a new quote
 function addQuote() {
-  const textInput = document.getElementById('newQuoteText');
-  const categoryInput = document.getElementById('newQuoteCategory');
-  const text = textInput.value.trim();
-  const category = categoryInput.value.trim();
+  const text = document.getElementById('newQuoteText').value.trim();
+  const category = document.getElementById('newQuoteCategory').value.trim();
 
   if (text === '' || category === '') {
     alert('Please enter both quote and category.');
@@ -28,15 +25,13 @@ function addQuote() {
   quotes.push({ text: text, category: category });
   displayRandomQuote();
 
-  textInput.value = '';
-  categoryInput.value = '';
+  document.getElementById('newQuoteText').value = '';
+  document.getElementById('newQuoteCategory').value = '';
 }
 
-// Event listener for 'Show New Quote' button
+// Event listeners
 document.getElementById('newQuote').addEventListener('click', displayRandomQuote);
-
-// Event listener for 'Add Quote' button
 document.getElementById('addQuoteBtn').addEventListener('click', addQuote);
 
-// Display a random quote on page load
+// Initial quote display
 displayRandomQuote();
