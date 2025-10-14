@@ -1,4 +1,4 @@
-﻿// Global array of quote objects
+﻿// Global quotes array
 const quotes = [
   { text: 'The only limit to our realization of tomorrow is our doubts of today.', category: 'inspiration' },
   { text: 'Simplicity is the ultimate sophistication.', category: 'wisdom' },
@@ -13,8 +13,30 @@ function displayRandomQuote() {
   quoteDisplay.textContent = '\"' + quote.text + '\" - ' + quote.category;
 }
 
-// Event listener for "Show New Quote" button
+// Function to add a new quote
+function addQuote() {
+  const textInput = document.getElementById('newQuoteText');
+  const categoryInput = document.getElementById('newQuoteCategory');
+  const text = textInput.value.trim();
+  const category = categoryInput.value.trim();
+
+  if (text === '' || category === '') {
+    alert('Please enter both quote and category.');
+    return;
+  }
+
+  quotes.push({ text: text, category: category });
+  displayRandomQuote();
+
+  textInput.value = '';
+  categoryInput.value = '';
+}
+
+// Event listener for 'Show New Quote' button
 document.getElementById('newQuote').addEventListener('click', displayRandomQuote);
 
-// Display a random quote on page load
+// Event listener for 'Add Quote' button
+document.getElementById('addQuoteBtn').addEventListener('click', addQuote);
+
+// Display initial quote on page load
 displayRandomQuote();
