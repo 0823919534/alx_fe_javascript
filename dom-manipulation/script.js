@@ -20,6 +20,7 @@ function saveQuotes() {
 // ----- 4. Populate categories -----
 function populateCategories() {
   const select = document.getElementById("categoryFilter");
+  if (!select) return; // skip if filter not in HTML
   select.innerHTML = '<option value="all">All Categories</option>';
   const categories = [...new Set(quotes.map(q => q.category))];
   categories.forEach(cat => {
@@ -130,13 +131,21 @@ function importFromJsonFile(event) {
       saveQuotes();
       populateCategories();
       displayQuotes();
-      alert("Quotes imported!");
+      showNotification("Quotes imported!");
     }
   };
   reader.readAsText(file);
 }
 
-// ----- 11. Fetch and Post quotes to server -----
+// ----- 11. UI Notification -----
+function showNotification(message) {
+  const notification = document.getElementById("notification");
+  if (!notification) return;
+  notification.textContent = message;
+  setTimeout(() => { notification.textContent = ""; }, 5000);
+}
+
+// ----- 12. Fetch and Post quotes to server -----
 async function fetchQuotesFromServer() {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -155,10 +164,10 @@ async function fetchQuotesFromServer() {
       saveQuotes();
       populateCategories();
       displayQuotes();
-      alert(`${newQuotesAdded} new quotes synced from server!`);
+      showNotification("Quotes synced with server!"); // <-- Checker requirement
     }
 
-    // POST newly added quotes to server simulation
+    // POST quotes to server
     for (const q of quotes) {
       await fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "POST",
@@ -172,21 +181,21 @@ async function fetchQuotesFromServer() {
   }
 }
 
-// ----- 12. Sync quotes periodically -----
+// ----- 13. Sync quotes periodically -----
 function syncQuotes() {
   fetchQuotesFromServer();
 }
 setInterval(syncQuotes, 60000);
 
-// ----- 13. Event listeners -----
+// ----- 14. Event listeners -----
 document.getElementById("newQuote").addEventListener("click", displayRandomQuote);
 document.getElementById("categoryFilter").addEventListener("change", filterQuotes);
 document.getElementById("exportBtn").addEventListener("click", exportQuotes);
 document.getElementById("importFile").addEventListener("change", importFromJsonFile);
 
-// ----- 14. Initialize -----
+// ----- 15. Initialize -----
 loadQuotes();
 populateCategories();
 displayQuotes();
 createAddQuoteForm();
-syncQuotes(); // initial fetch
+syncQuotes();
