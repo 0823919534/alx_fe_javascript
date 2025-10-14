@@ -1,5 +1,5 @@
 ﻿// Global quotes array with objects containing text and category
-var quotes = [
+const quotes = [
   { text: 'The only limit to our realization of tomorrow is our doubts of today.', category: 'inspiration' },
   { text: 'Simplicity is the ultimate sophistication.', category: 'wisdom' },
   { text: 'Be yourself; everyone else is already taken.', category: 'humor' }
@@ -7,18 +7,18 @@ var quotes = [
 
 // Function to display a random quote
 function displayRandomQuote() {
-  var randomIndex = Math.floor(Math.random() * quotes.length);
-  var quote = quotes[randomIndex];
-  var quoteDisplay = document.getElementById('quoteDisplay');
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const quote = quotes[randomIndex];
+  const quoteDisplay = document.getElementById('quoteDisplay');
   quoteDisplay.textContent = '\"' + quote.text + '\" - ' + quote.category;
 }
 
 // Function to add a new quote
 function addQuote() {
-  var textInput = document.getElementById('newQuoteText');
-  var categoryInput = document.getElementById('newQuoteCategory');
-  var text = textInput.value.trim();
-  var category = categoryInput.value.trim();
+  const textInput = document.getElementById('newQuoteText');
+  const categoryInput = document.getElementById('newQuoteCategory');
+  const text = textInput.value.trim();
+  const category = categoryInput.value.trim();
 
   if (text === '' || category === '') {
     alert('Please enter both quote and category.');
@@ -32,13 +32,11 @@ function addQuote() {
   categoryInput.value = '';
 }
 
-// Event listener for “Show New Quote” button
-var newQuoteButton = document.getElementById('newQuote');
-newQuoteButton.addEventListener('click', displayRandomQuote);
+// Event listener on 'Show New Quote' button
+document.getElementById('newQuote').addEventListener('click', displayRandomQuote);
 
-// Event listener for "Add Quote" button
-var addQuoteButton = document.getElementById('addQuoteBtn');
-addQuoteButton.addEventListener('click', addQuote);
+// Event listener on 'Add Quote' button
+document.getElementById('addQuoteBtn').addEventListener('click', addQuote);
 
 // Display initial quote on page load
 displayRandomQuote();
