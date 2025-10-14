@@ -7,7 +7,10 @@ let selectedCategory = "all";
 // ----- 3. Load and save quotes -----
 function loadQuotes() {
   const stored = localStorage.getItem("quotes");
-  quotes = stored ? JSON.parse(stored) : [];
+  quotes = stored ? JSON.parse(stored) : [
+    { text: "The journey of a thousand miles begins with one step.", category: "inspiration" },
+    { text: "Life is what happens when you're busy making other plans.", category: "life" },
+  ];
 }
 
 function saveQuotes() {
@@ -133,7 +136,7 @@ function importFromJsonFile(event) {
   reader.readAsText(file);
 }
 
-// ----- 11. Fetch quotes from server (ALX checker expects this exact function) -----
+// ----- 11. Fetch and Post quotes to server -----
 async function fetchQuotesFromServer() {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/posts");
@@ -154,17 +157,25 @@ async function fetchQuotesFromServer() {
       displayQuotes();
       alert(`${newQuotesAdded} new quotes synced from server!`);
     }
+
+    // POST newly added quotes to server simulation
+    for (const q of quotes) {
+      await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(q)
+      });
+    }
+
   } catch (err) {
-    console.error("Server fetch failed:", err);
+    console.error("Server fetch/post failed:", err);
   }
 }
 
-// ----- 12. Sync quotes periodically (ALX checker expects syncQuotes function) -----
+// ----- 12. Sync quotes periodically -----
 function syncQuotes() {
   fetchQuotesFromServer();
 }
-
-// Periodic sync every 60 seconds
 setInterval(syncQuotes, 60000);
 
 // ----- 13. Event listeners -----
